@@ -1,5 +1,8 @@
 package com.paulo.os.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,4 +26,11 @@ public class TecnicoResource {
 		return ResponseEntity.ok().body(objDTO);
 	}
 
+	@GetMapping
+	public ResponseEntity<List<TecnicoDTO>> findAll() {
+		List<TecnicoDTO> listDTO = service.findAll().stream().map(obj -> new TecnicoDTO(obj))
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok().body(listDTO);
+	}
 }
